@@ -1,8 +1,9 @@
 # River City Fence & Seal
 
 Marketing site for a fence painting & sealing business in Memphis, Tennessee.
-Single-page scroller, statically generated — no server, no database, no build-time
-API calls.
+Single-page scroller, statically generated — no server, no database, and no
+third-party request once the page is served. (The *build* does fetch fonts once,
+then self-hosts them.)
 
 **Nuxt 4 · Nuxt UI 4 · Tailwind CSS 4 · fully prerendered**
 
@@ -39,7 +40,7 @@ Every item below is a stand-in. Nothing here is real.
 | `app/utils/content.ts` | The four reviews. They currently read **"Placeholder review"** on purpose so they cannot ship by accident |
 | `public/img/` | All photography (see below) |
 | `public/robots.txt` | Uncomment the `Sitemap:` line with your real domain |
-| `app/app.vue` | Optional: add `public/img/og-cover.jpg` (1200×630) and uncomment `ogImage` |
+| `app/app.vue` | `ogImage` is a root-relative path. Facebook and X may need an absolute `https://yourdomain.com/img/og-cover.jpg` once the domain exists |
 
 The phone number uses the `555-01xx` range, which is reserved for fictional use,
 and the email domain is not registered — so nothing can leak to a real person
@@ -132,6 +133,8 @@ Then drag `.output/public` onto <https://app.netlify.com/drop>. Live in seconds.
 
 **Vercel**
 Import the repo. Vercel detects Nuxt automatically; no configuration needed.
+Check the current terms first — the free Hobby tier has historically been
+non-commercial only, which matters for a real business site.
 
 **GitHub Pages**
 ```bash
@@ -209,7 +212,8 @@ app/
   composables/           ← scroll reveal, scroll position
   pages/index.vue        ← section order lives here
   utils/content.ts       ← services, process, FAQ, reviews, areas
-public/                  ← favicon, robots.txt, your photos
+public/                  ← favicon, robots.txt, og-cover.jpg, your photos
+docs/                    ← maintainer docs (architecture, build, rules, config, tasks)
 netlify.toml             ← build config for Netlify
 ```
 
