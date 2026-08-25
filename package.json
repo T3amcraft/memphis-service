@@ -1,0 +1,30 @@
+{
+  "name": "river-city-fence-and-seal",
+  "private": true,
+  "type": "module",
+  "description": "Marketing site for River City Fence & Seal — fence painting & sealing in Memphis, TN",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "npx serve .output/public",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "^1",
+    "@nuxt/ui": "^4.10.0",
+    "nuxt": "^4.5.2",
+    "vue": "^3",
+    "vue-router": "^4",
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.0",
+    "vue-tsc": "^3.3.11"
+  }
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Add your real domain once the site is live:
+# Sitemap: https://example.com/sitemap.xml

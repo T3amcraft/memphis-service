@@ -1,0 +1,195 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* ==========================================================================
+   River City Fence & Seal — design tokens
+   "Warm Premium": deep forest green, warm cream, brass accents, serif display.
+   ========================================================================== */
+
+@theme static {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Primary — deep forest green (the brand base is 800) */
+  --color-forest-50: #f1f6f3;
+  --color-forest-100: #ddeae2;
+  --color-forest-200: #bcd5c6;
+  --color-forest-300: #92b8a4;
+  --color-forest-400: #659781;
+  --color-forest-500: #457a64;
+  --color-forest-600: #336151;
+  --color-forest-700: #2a4e42;
+  --color-forest-800: #1e3a2f;
+  --color-forest-900: #182f27;
+  --color-forest-950: #0d1b16;
+
+  /* Secondary — brass / aged gold (the brand accent is 500) */
+  --color-brass-50: #fbf8f1;
+  --color-brass-100: #f5eedc;
+  --color-brass-200: #eadbb8;
+  --color-brass-300: #ddc28c;
+  --color-brass-400: #cda76a;
+  --color-brass-500: #b8945a;
+  --color-brass-600: #a17c46;
+  --color-brass-700: #83613a;
+  --color-brass-800: #6b4f33;
+  --color-brass-900: #59422d;
+  --color-brass-950: #322317;
+
+  /* Neutral — warm cream / limed oak (page ground is 50) */
+  --color-cream-50: #faf6ef;
+  --color-cream-100: #f3ede1;
+  --color-cream-200: #e7dcc9;
+  --color-cream-300: #d6c6aa;
+  --color-cream-400: #b9a483;
+  --color-cream-500: #9c8768;
+  --color-cream-600: #7f6d54;
+  --color-cream-700: #665846;
+  --color-cream-800: #4a4033;
+  --color-cream-900: #2c2620;
+  --color-cream-950: #1a1611;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Map Nuxt UI's semantic tokens onto the warm palette. */
+:root {
+  --ui-radius: 0.375rem;
+  --ui-container: 78rem;
+  --ui-header-height: 5rem;
+
+  --ui-bg: var(--color-cream-50);
+  --ui-bg-muted: var(--color-cream-100);
+  --ui-bg-elevated: var(--color-cream-100);
+  --ui-bg-accented: var(--color-cream-200);
+  --ui-bg-inverted: var(--color-forest-900);
+
+  --ui-text-dimmed: var(--color-cream-500);
+  --ui-text-muted: var(--color-cream-600);
+  --ui-text-toned: var(--color-cream-700);
+  --ui-text: var(--color-forest-900);
+  --ui-text-highlighted: var(--color-forest-950);
+
+  --ui-border: var(--color-cream-200);
+  --ui-border-muted: var(--color-cream-200);
+  --ui-border-accented: var(--color-cream-300);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  body {
+    background-color: var(--color-cream-50);
+    color: var(--color-forest-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Anchor targets clear the sticky header. */
+  section[id],
+  div[id] {
+    scroll-margin-top: calc(var(--ui-header-height) + 1rem);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    font-variation-settings: "SOFT" 0, "WONK" 0;
+  }
+
+  ::selection {
+    background-color: var(--color-brass-300);
+    color: var(--color-forest-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Small brass eyebrow label that sits above section headings. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-brass-700);
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background-color: var(--color-brass-500);
+  }
+
+  /* Hairline divider with a centred brass lozenge. */
+  .rule-diamond {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--color-brass-500);
+  }
+
+  .rule-diamond::before,
+  .rule-diamond::after {
+    content: "";
+    height: 1px;
+    flex: 1 1 0%;
+    max-width: 5rem;
+    background: linear-gradient(90deg, transparent, currentColor);
+  }
+
+  .rule-diamond::after {
+    background: linear-gradient(90deg, currentColor, transparent);
+  }
+}
+
+@utility paper {
+  /* Barely-there fibre texture so large cream fields don't read as flat. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Scroll reveal — opt-in, and inert when the visitor prefers reduced motion. */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition:
+      opacity 0.7s var(--ease-out-expo),
+      transform 0.7s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}
