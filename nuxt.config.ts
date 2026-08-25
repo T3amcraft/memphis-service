@@ -52,8 +52,8 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en-US' },
       meta: [
         { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'theme-color', content: '#1E3A2F' }
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+        // theme-color is set in app.vue from app.config.ts -> seo.themeColor
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }

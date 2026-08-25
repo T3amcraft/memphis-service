@@ -8,9 +8,9 @@ const { business } = useAppConfig()
       <div class="grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div class="lg:col-span-5">
           <SectionHeading
-            eyebrow="Where we work"
-            title="Greater Memphis, and about thirty miles out."
-            lede="We are based in Memphis and stay inside Shelby County and its immediate neighbours. That is deliberate — a crew that is not driving two hours can be back on your fence the next morning when the weather turns."
+            :eyebrow="copy.areas.eyebrow"
+            :title="copy.areas.title"
+            :lede="copy.areas.lede"
           />
 
           <ul class="mt-10 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-2">
@@ -27,9 +27,9 @@ const { business } = useAppConfig()
 
           <p class="mt-8 rounded-lg border border-cream-200 bg-cream-100/70 p-5 text-sm leading-relaxed text-cream-700" data-reveal>
             <UIcon name="i-lucide-phone-call" class="mr-1.5 inline size-4 align-[-2px] text-brass-600" />
-            Just outside the ring, or across the state line in North Mississippi?
-            Call <a :href="business.phoneHref" class="font-semibold text-forest-800 underline decoration-brass-400 decoration-2 underline-offset-2">{{ business.phoneDisplay }}</a>
-            and ask — larger jobs we will happily travel for.
+            {{ copy.areas.outsideNoteLead }}
+            <a :href="business.phoneHref" class="font-semibold text-forest-800 underline decoration-brass-400 decoration-2 underline-offset-2">{{ business.phoneDisplay }}</a>
+            {{ copy.areas.outsideNoteTail }}
           </p>
         </div>
 
@@ -38,7 +38,7 @@ const { business } = useAppConfig()
             <ServiceMap />
           </div>
           <p class="mt-3 text-center text-xs text-cream-600 italic">
-            Illustrative coverage map — not to scale.
+            {{ copy.areas.mapCaption }}
           </p>
         </div>
       </div>

@@ -1,41 +1,50 @@
 <script setup lang="ts">
-const { business } = useAppConfig()
+const { business, seo } = useAppConfig()
 
-const description
-  = 'Professional fence painting, staining and sealing across Greater Memphis. '
-    + 'Soft wash, full prep, spray-and-back-brush application, and a written workmanship warranty. Free on-site estimates.'
+const title = `${business.name} — ${seo.titleSuffix}`
 
 useSeoMeta({
-  title: `${business.name} — Fence Painting & Sealing in Memphis, TN`,
-  description,
-  ogTitle: `${business.name} — Fence Painting & Sealing in Memphis, TN`,
-  ogDescription: description,
+  title,
+  description: seo.description,
+  ogTitle: title,
+  ogDescription: seo.description,
   ogType: 'website',
   ogLocale: 'en_US',
   ogSiteName: business.name,
   twitterCard: 'summary_large_image',
-  /* Most scrapers need an absolute URL. A root-relative path works on Slack
-     and iMessage but Facebook and X may skip it — set the full
-     https://yourdomain.com/img/og-cover.jpg once the domain is live. */
-  ogImage: '/img/og-cover.jpg',
+  ogImage: seo.ogImage,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: `${business.name} — fence painting and sealing in Memphis, Tennessee`,
-  twitterImage: '/img/og-cover.jpg'
+  ogImageAlt: `${business.name} — fence painting and sealing in ${business.address.city}, ${business.address.state}`,
+  twitterImage: seo.ogImage
 })
 
+/* Derived from business.hours, so the schema can never drift from the hours
+   printed on the page. Closed days are omitted rather than sent as empty. */
+const openingHours = computed(() =>
+  business.hours
+    .filter(slot => !slot.closed && slot.opens && slot.closes)
+    .map(slot => ({
+      '@type': 'OpeningHoursSpecification',
+      'dayOfWeek': slot.days.length === 1 ? slot.days[0] : slot.days,
+      'opens': slot.opens,
+      'closes': slot.closes
+    }))
+)
+
 /* LocalBusiness structured data. Google uses this for the local pack and
-   rich results, so keep it in sync with app.config.ts and your Google
-   Business Profile — mismatched name/phone/address hurts local ranking. */
+   rich results, so every value is read from app.config.ts — keep that file in
+   sync with your Google Business Profile, because a mismatched name, phone or
+   address hurts local ranking. */
 const structuredData = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'HousePainter',
   'name': business.name,
-  'description': description,
+  'description': seo.description,
   'telephone': business.phoneDisplay,
   'email': business.email,
   'foundingDate': String(business.established),
-  'priceRange': '$$',
+  ...(seo.priceRange ? { priceRange: seo.priceRange } : {}),
   'address': {
     '@type': 'PostalAddress',
     'streetAddress': business.address.street,
@@ -46,22 +55,9 @@ const structuredData = computed(() => ({
   },
   'areaServed': serviceAreas.map(area => ({
     '@type': 'City',
-    'name': `${area}, TN`
+    'name': `${area}, ${business.address.state}`
   })),
-  'openingHoursSpecification': [
-    {
-      '@type': 'OpeningHoursSpecification',
-      'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      'opens': '07:00',
-      'closes': '18:00'
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      'dayOfWeek': 'Saturday',
-      'opens': '08:00',
-      'closes': '14:00'
-    }
-  ],
+  'openingHoursSpecification': openingHours.value,
   'hasOfferCatalog': {
     '@type': 'OfferCatalog',
     'name': 'Fence services',
@@ -84,6 +80,7 @@ const faqData = computed(() => ({
 }))
 
 useHead({
+  meta: [{ name: 'theme-color', content: seo.themeColor }],
   script: [
     { type: 'application/ld+json', innerHTML: () => JSON.stringify(structuredData.value) },
     { type: 'application/ld+json', innerHTML: () => JSON.stringify(faqData.value) }

@@ -8,8 +8,8 @@ const { credentials } = business
     <div class="mx-auto max-w-(--ui-container) px-6">
       <div class="flex flex-wrap items-end justify-between gap-10">
         <SectionHeading
-          eyebrow="What neighbours say"
-          title="Rated for prep work, straight answers and a clean site."
+          :eyebrow="copy.reviews.eyebrow"
+          :title="copy.reviews.title"
         />
 
         <div class="flex items-center gap-5 rounded-lg border border-cream-200 bg-cream-100/70 px-6 py-4" data-reveal>
@@ -26,7 +26,7 @@ const { credentials } = business
               />
             </div>
             <p class="mt-1.5 text-sm text-cream-700">
-              {{ credentials.reviewCount }}+ reviews across Google &amp; Facebook
+              {{ fill(copy.reviews.aggregate, { count: credentials.reviewCount }) }}
             </p>
           </div>
         </div>

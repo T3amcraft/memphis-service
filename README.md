@@ -1,4 +1,4 @@
-# River City Fence & Seal
+# Tallowbark Fence & Seal
 
 Marketing site for a fence painting & sealing business in Memphis, Tennessee.
 Single-page scroller, statically generated — no server, no database, and no
@@ -43,15 +43,20 @@ Every item below is a stand-in. Nothing here is real.
 | `app/app.vue` | `ogImage` is a root-relative path. Facebook and X may need an absolute `https://yourdomain.com/img/og-cover.jpg` once the domain exists |
 
 The phone number uses the `555-01xx` range, which is reserved for fictional use,
-and the email domain is not registered — so nothing can leak to a real person
+and the email sits on a `.example` domain, a TLD permanently reserved by RFC
+2606 — so nothing can leak to a real person
 while you are still building.
 
 ### Two files hold everything
 
-- **`app/app.config.ts`** — contact details, credentials, photo paths, form endpoint.
-  The things a business owner changes.
-- **`app/utils/content.ts`** — services, process steps, FAQ, reviews, service areas.
-  The words. Edit the arrays and the layout follows.
+- **`app/app.config.ts`** — identity, contact, credentials, opening hours, SEO,
+  photo paths, form endpoint. The facts about the business.
+- **`app/utils/content.ts`** — services, process, FAQ, reviews, service areas,
+  plus a `copy` object holding **every heading, button label, form label and
+  placeholder** on the page. The words.
+
+No component contains literal prose or a duplicated contact detail, so any
+change lands in exactly one of these two files.
 
 ---
 

@@ -26,12 +26,12 @@ const { credentials } = business
     <div class="mx-auto flex min-h-[86svh] max-w-(--ui-container) flex-col justify-center px-6 py-20 lg:py-28">
       <div class="max-w-2xl">
         <p class="eyebrow text-brass-300">
-          Memphis · Germantown · Collierville
+          {{ copy.hero.eyebrow }}
         </p>
 
         <h1 class="mt-6 font-serif text-4xl leading-[1.05] font-semibold text-cream-50 text-balance sm:text-5xl lg:text-6xl">
-          Fence painting &amp; sealing, built for
-          <span class="relative whitespace-nowrap text-brass-300">Memphis weather<svg
+          {{ copy.hero.headlineLead }}
+          <span class="relative whitespace-nowrap text-brass-300">{{ copy.hero.headlineAccent }}<svg
             class="absolute -bottom-2 left-0 h-3 w-full text-brass-500/70"
             viewBox="0 0 300 12"
             fill="none"
@@ -46,9 +46,7 @@ const { credentials } = business
         </h1>
 
         <p class="mt-8 max-w-xl text-lg leading-relaxed text-cream-200/90">
-          Fifty inches of rain a year, relentless humidity and a UV season that
-          never really ends. We soft-wash, prep, stain and seal — both sides,
-          every board — so your fence stops losing that fight.
+          {{ copy.hero.lede }}
         </p>
 
         <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -58,7 +56,7 @@ const { credentials } = business
             trailing-icon="i-lucide-arrow-right"
             class="justify-center bg-brass-500 px-7 font-semibold text-forest-950 shadow-lg shadow-brass-950/30 transition-transform hover:-translate-y-0.5 hover:bg-brass-400"
           >
-            Get a Free Estimate
+            {{ copy.hero.ctaPrimary }}
           </UButton>
           <UButton
             :href="business.phoneHref"
@@ -85,21 +83,23 @@ const { credentials } = business
             <dt class="sr-only">Customer rating</dt>
             <dd class="text-cream-200">
               <span class="font-semibold text-cream-50">{{ credentials.reviewAverage }}</span>
-              from {{ credentials.reviewCount }}+ local reviews
+              {{ fill(copy.hero.trust.reviews, { count: credentials.reviewCount }) }}
             </dd>
           </div>
 
           <div class="flex items-center gap-2.5">
             <UIcon name="i-lucide-shield-check" class="size-4 shrink-0 text-brass-400" />
             <dt class="sr-only">Insurance</dt>
-            <dd class="text-cream-200">Licensed &amp; fully insured</dd>
+            <dd class="text-cream-200">
+              {{ credentials.insured ? copy.hero.trust.insured : copy.hero.trust.licensedOnly }}
+            </dd>
           </div>
 
           <div class="flex items-center gap-2.5">
             <UIcon name="i-lucide-badge-check" class="size-4 shrink-0 text-brass-400" />
             <dt class="sr-only">Warranty</dt>
             <dd class="text-cream-200">
-              {{ credentials.warrantyYears }}-year workmanship warranty
+              {{ fill(copy.hero.trust.warranty, { years: credentials.warrantyYears }) }}
             </dd>
           </div>
         </dl>
@@ -110,13 +110,13 @@ const { credentials } = business
     <div class="pointer-events-none absolute right-8 bottom-10 hidden xl:block">
       <div class="pointer-events-auto w-64 rounded-lg border border-cream-100/15 bg-forest-950/70 p-5 backdrop-blur-md">
         <p class="eyebrow text-brass-300">
-          No-obligation
+          {{ copy.hero.promise.eyebrow }}
         </p>
         <p class="mt-3 font-serif text-xl text-cream-50">
-          On-site estimates, usually within 48 hours
+          {{ copy.hero.promise.title }}
         </p>
         <p class="mt-2 text-sm text-cream-300/80">
-          We measure the run, probe the posts, and put it in writing.
+          {{ copy.hero.promise.body }}
         </p>
       </div>
     </div>

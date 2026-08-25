@@ -23,8 +23,7 @@ const socials = [
             </span>
           </div>
           <p class="mt-5 max-w-sm leading-relaxed text-cream-400/85">
-            Fence painting, staining and sealing across Greater Memphis.
-            Established {{ business.established }}, still answering our own phone.
+            {{ fill(copy.footer.blurb, { year: business.established }) }}
           </p>
 
           <div class="mt-7 flex gap-2">
@@ -46,7 +45,7 @@ const socials = [
         <!-- Services -->
         <div class="lg:col-span-3">
           <h2 class="font-serif text-base font-semibold tracking-wide text-cream-50">
-            Services
+            {{ copy.footer.servicesHeading }}
           </h2>
           <ul class="mt-5 space-y-3 text-sm">
             <li v-for="service in services" :key="service.id">
@@ -57,7 +56,7 @@ const socials = [
             </li>
             <li>
               <a href="#work" class="text-cream-400/85 transition-colors hover:text-brass-300">
-                Before &amp; after
+                {{ copy.footer.beforeAfterLink }}
               </a>
             </li>
           </ul>
@@ -66,7 +65,7 @@ const socials = [
         <!-- Areas -->
         <div class="lg:col-span-2">
           <h2 class="font-serif text-base font-semibold tracking-wide text-cream-50">
-            Service area
+            {{ copy.footer.areasHeading }}
           </h2>
           <ul class="mt-5 space-y-2.5 text-sm text-cream-400/85">
             <li v-for="area in serviceAreas.slice(0, 8)" :key="area">
@@ -74,7 +73,7 @@ const socials = [
             </li>
             <li>
               <a href="#areas" class="text-brass-300/90 hover:text-brass-200">
-                See full area →
+                {{ copy.footer.areasLink }}
               </a>
             </li>
           </ul>
@@ -83,7 +82,7 @@ const socials = [
         <!-- Contact -->
         <div class="lg:col-span-3">
           <h2 class="font-serif text-base font-semibold tracking-wide text-cream-50">
-            Get in touch
+            {{ copy.footer.contactHeading }}
           </h2>
           <ul class="mt-5 space-y-4 text-sm">
             <li>
@@ -114,8 +113,8 @@ const socials = [
             <li class="flex items-start gap-2.5 text-cream-400/85">
               <UIcon name="i-lucide-clock" class="mt-0.5 size-4 shrink-0 text-brass-400" />
               <span>
-                <span v-for="slot in business.hours" :key="slot.days" class="block">
-                  {{ slot.days }} · {{ slot.time }}
+                <span v-for="slot in business.hours" :key="slot.label" class="block">
+                  {{ slot.label }} · {{ slot.display }}
                 </span>
               </span>
             </li>
@@ -132,7 +131,7 @@ const socials = [
           href="#top"
           class="inline-flex items-center gap-1.5 transition-colors hover:text-brass-300"
         >
-          Back to top
+          {{ copy.footer.backToTop }}
           <UIcon name="i-lucide-arrow-up" class="size-3.5" />
         </a>
       </div>

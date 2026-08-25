@@ -22,9 +22,9 @@ const { business } = useAppConfig()
         <div>
           <SectionHeading
             tone="light"
-            eyebrow="The Delta Guard Program"
-            title="Book us once. Then stop thinking about your fence."
-            lede="A fence that is inspected, washed and re-sealed on a rhythm does not enter the replacement cycle. One annual visit is the difference between maintaining a fence and buying a new one."
+            :eyebrow="copy.maintenance.eyebrow"
+            :title="copy.maintenance.title"
+            :lede="copy.maintenance.lede"
           />
 
           <div class="mt-10 flex flex-col gap-3 sm:flex-row" data-reveal="120">
@@ -34,7 +34,7 @@ const { business } = useAppConfig()
               trailing-icon="i-lucide-arrow-right"
               class="justify-center bg-brass-500 px-7 font-semibold text-forest-950 hover:bg-brass-400"
             >
-              Ask about Delta Guard
+              {{ copy.maintenance.cta }}
             </UButton>
             <UButton
               :href="business.phoneHref"
@@ -49,8 +49,7 @@ const { business } = useAppConfig()
 
           <p class="mt-6 flex items-start gap-2 text-sm leading-relaxed text-cream-300/70" data-reveal="180">
             <UIcon name="i-lucide-ruler" class="mt-0.5 size-4 shrink-0 text-brass-400" />
-            Program cost depends on the length and condition of your fence, so we
-            quote it alongside your estimate — no sign-up needed to get the number.
+            {{ copy.maintenance.costNote }}
           </p>
         </div>
 
@@ -59,7 +58,7 @@ const { business } = useAppConfig()
           data-reveal="80"
         >
           <p class="eyebrow text-brass-300 before:bg-brass-400">
-            Included every year
+            {{ copy.maintenance.includedLabel }}
           </p>
 
           <ul class="mt-7 space-y-4">
@@ -77,7 +76,7 @@ const { business } = useAppConfig()
           </ul>
 
           <p class="mt-8 border-t border-cream-100/12 pt-6 font-serif text-lg text-cream-200 italic">
-            “The cheapest fence you will ever own is the one you already have.”
+            “{{ copy.maintenance.pullQuote }}”
           </p>
         </div>
       </div>

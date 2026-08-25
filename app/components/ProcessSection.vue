@@ -5,17 +5,16 @@
         <div class="lg:col-span-4">
           <div class="lg:sticky lg:top-32">
             <SectionHeading
-              eyebrow="How the job runs"
-              title="Five steps, and none of them get skipped."
-              lede="Coating is the quick part. Everything before it is what makes the finish last — so here is exactly what happens, in order, from the first phone call."
+              :eyebrow="copy.process.eyebrow"
+              :title="copy.process.title"
+              :lede="copy.process.lede"
             />
             <div class="mt-8 rounded-lg border border-cream-200 bg-cream-100/70 p-5" data-reveal="150">
               <p class="flex items-start gap-2.5 text-sm leading-relaxed text-cream-700">
                 <UIcon name="i-lucide-cloud-rain" class="mt-0.5 size-4 shrink-0 text-brass-600" />
                 <span>
-                  <strong class="font-semibold text-forest-900">Weather moves schedules.</strong>
-                  We do not coat damp wood or work ahead of rain. You will get a
-                  call, not a rushed job.
+                  <strong class="font-semibold text-forest-900">{{ copy.process.weatherNoteLead }}</strong>
+                  {{ copy.process.weatherNoteBody }}
                 </span>
               </p>
             </div>

@@ -2,9 +2,9 @@
   <section id="services" class="paper bg-cream-50 py-24 lg:py-32">
     <div class="mx-auto max-w-(--ui-container) px-6">
       <SectionHeading
-        eyebrow="What we do"
-        title="Two services, done properly — and a plan so you only book once."
-        lede="Most fence companies treat coating as an afternoon with a sprayer. The prep is what decides whether it still looks right in three years, so that is where most of our time goes."
+        :eyebrow="copy.services.eyebrow"
+        :title="copy.services.title"
+        :lede="copy.services.lede"
       />
 
       <div class="mt-16 grid gap-6 lg:grid-cols-3">
@@ -54,11 +54,11 @@
 
       <p class="mt-12 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm text-cream-700" data-reveal>
         <UIcon name="i-lucide-info" class="size-4 text-brass-600" />
-        Not sure which your fence needs?
+        {{ copy.services.footnotePrefix }}
         <a href="#quote" class="font-semibold text-forest-800 underline decoration-brass-400 decoration-2 underline-offset-4 hover:text-forest-950">
-          Ask for an honest assessment
+          {{ copy.services.footnoteLink }}
         </a>
-        — we will tell you if it can wait a year.
+        {{ copy.services.footnoteSuffix }}
       </p>
     </div>
   </section>

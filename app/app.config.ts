@@ -1,9 +1,10 @@
 /* ==========================================================================
-   EDIT ME FIRST.
-   Everything a new owner needs to change on day one lives in this file:
-   phone, email, address, hours, social links, photo paths, form endpoint.
+   EDIT ME FIRST — identity, contact and integrations.
+   Nothing in this file is hardcoded anywhere else, so changing a value here
+   changes it everywhere it appears, including the structured data Google reads.
    All values marked PLACEHOLDER are safe stand-ins — swap them for real ones.
-   Long-form copy (services, process, FAQ, reviews) lives in app/utils/content.ts
+
+   Wording and section copy live in app/utils/content.ts
    ========================================================================== */
 
 export default defineAppConfig({
@@ -16,41 +17,73 @@ export default defineAppConfig({
   },
 
   business: {
-    name: 'River City Fence & Seal',
-    shortName: 'River City',
-    tagline: 'Fence painting & sealing, Memphis born.',
+    name: 'Tallowbark Fence & Seal',
+    shortName: 'Tallowbark',
+    /* Shown under the wordmark in the header. */
+    locationLine: 'Memphis, Tennessee',
     /* PLACEHOLDER — replace with the real founding year. */
     established: 2020,
 
     /* --- Contact. PLACEHOLDER values: 555-01xx numbers are reserved for
-       fictional use, and the email domain is not registered. ------------ */
-    phoneDisplay: '(901) 555-0142',
-    phoneHref: 'tel:+19015550142',
-    email: 'quotes@rivercityfenceandseal.com',
+       fictional use, and `.example` is a TLD reserved by RFC 2606, so the
+       address can never reach a real inbox. ------------------------------ */
+    phoneDisplay: '(901) 555-0148',
+    phoneHref: 'tel:+19015550148',
+    email: 'quotes@tallowbark.example',
 
     /* PLACEHOLDER — a mailing address is optional for a mobile trade, but
        Google Business Profile ranking loves a consistent city/state/zip. */
     address: {
-      street: '2440 Central Ave, Suite 5',
+      street: '1147 Kiln Yard Road',
       city: 'Memphis',
       state: 'TN',
       zip: '38104'
     },
 
+    /* --- Opening hours ---------------------------------------------------
+       `label` and `display` are what visitors read. `days`, `opens` and
+       `closes` are the machine-readable copy that feeds the
+       openingHoursSpecification in the LocalBusiness schema, so edit both
+       halves of a row together. Set `closed: true` for a day off.
+       -------------------------------------------------------------------- */
     hours: [
-      { days: 'Monday – Friday', time: '7:00 am – 6:00 pm' },
-      { days: 'Saturday', time: '8:00 am – 2:00 pm' },
-      { days: 'Sunday', time: 'Closed' }
+      {
+        label: 'Monday – Friday',
+        display: '7:00 am – 6:00 pm',
+        days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '07:00',
+        closes: '18:00',
+        closed: false
+      },
+      {
+        label: 'Saturday',
+        display: '8:00 am – 2:00 pm',
+        days: ['Saturday'],
+        opens: '08:00',
+        closes: '14:00',
+        closed: false
+      },
+      {
+        label: 'Sunday',
+        display: 'Closed',
+        days: ['Sunday'],
+        opens: '',
+        closes: '',
+        closed: true
+      }
     ],
 
-    /* PLACEHOLDER — point these at real profiles, or delete the entries. */
+    /* PLACEHOLDER — example.com is RFC 2606 reserved. Point these at real
+       profiles, or delete the entries you do not have. */
     social: {
-      facebook: 'https://facebook.com/',
-      instagram: 'https://instagram.com/',
-      google: 'https://g.page/'
+      facebook: 'https://example.com',
+      instagram: 'https://example.com',
+      google: 'https://example.com'
     },
 
-    /* PLACEHOLDER — shown as trust badges. Only claim what is true. */
+    /* PLACEHOLDER — published as fact in trust badges and structured data.
+       Only claim what is true. `insured: false` removes every insurance
+       claim from the page rather than leaving it to the copy. */
     credentials: {
       licenseNumber: 'TN-00000000',
       insured: true,
@@ -58,6 +91,23 @@ export default defineAppConfig({
       reviewCount: 180,
       reviewAverage: 4.9
     }
+  },
+
+  /* --- Search and social preview --------------------------------------- */
+  seo: {
+    /* Used for <title>, the meta description and the og/twitter tags. */
+    titleSuffix: 'Fence Painting & Sealing in Memphis, TN',
+    description:
+      'Professional fence painting, staining and sealing across Greater Memphis. '
+      + 'Soft wash, full prep, spray-and-back-brush application, and a written '
+      + 'workmanship warranty. Free on-site estimates.',
+    /* Schema.org priceRange. '$' to '$$$$', or '' to omit the property. */
+    priceRange: '$$',
+    /* 1200×630 social card in public/img/. Scrapers such as Facebook and X
+       may require an absolute https:// URL once a domain exists. */
+    ogImage: '/img/og-cover.jpg',
+    /* Browser UI colour on mobile. Matches --color-forest-800. */
+    themeColor: '#1e3a2f'
   },
 
   /* --- Quote form delivery ---------------------------------------------

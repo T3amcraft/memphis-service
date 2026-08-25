@@ -3,10 +3,17 @@ const { business } = useAppConfig()
 const { credentials } = business
 
 const stats = [
-  { value: `Est. ${business.established}`, label: 'Memphis owned & operated', icon: 'i-lucide-landmark' },
-  { value: `${credentials.reviewAverage} ★`, label: `${credentials.reviewCount}+ homeowner reviews`, icon: 'i-lucide-star' },
-  { value: `${credentials.warrantyYears} years`, label: 'Written workmanship warranty', icon: 'i-lucide-badge-check' },
-  { value: 'Licensed', label: `& fully insured · ${credentials.licenseNumber}`, icon: 'i-lucide-shield-check' }
+  { value: `Est. ${business.established}`, label: copy.trustBar.established, icon: 'i-lucide-landmark' },
+  { value: `${credentials.reviewAverage} ★`, label: fill(copy.trustBar.reviews, { count: credentials.reviewCount }), icon: 'i-lucide-star' },
+  { value: `${credentials.warrantyYears} years`, label: copy.trustBar.warranty, icon: 'i-lucide-badge-check' },
+  {
+    value: 'Licensed',
+    label: fill(
+      credentials.insured ? copy.trustBar.licence : copy.trustBar.licenceNoInsurance,
+      { licence: credentials.licenseNumber }
+    ),
+    icon: 'i-lucide-shield-check'
+  }
 ]
 </script>
 

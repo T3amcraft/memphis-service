@@ -1,11 +1,7 @@
 <script setup lang="ts">
 const { media } = useAppConfig()
 
-const changes = [
-  { icon: 'i-lucide-sparkles', text: 'Oxidised grey layer washed off, true colour brought back' },
-  { icon: 'i-lucide-shield', text: 'Water beads instead of soaking into the grain' },
-  { icon: 'i-lucide-sun', text: 'UV inhibitors slow the fade through our long summers' }
-]
+const changes = copy.beforeAfter.changes
 </script>
 
 <template>
@@ -21,9 +17,9 @@ const changes = [
         <div class="lg:col-span-5">
           <SectionHeading
             tone="light"
-            eyebrow="Before &amp; after"
-            title="The grey is not the wood. It is a layer sitting on top of it."
-            lede="Most Memphis fences that look finished are simply dirty and dried out. Wash, brighten, then seal, and the timber underneath is usually in far better shape than the owner expected."
+            :eyebrow="copy.beforeAfter.eyebrow"
+            :title="copy.beforeAfter.title"
+            :lede="copy.beforeAfter.lede"
           />
 
           <ul class="mt-10 space-y-4">
@@ -46,7 +42,7 @@ const changes = [
             trailing-icon="i-lucide-arrow-right"
             class="mt-10 bg-brass-500 font-semibold text-forest-950 hover:bg-brass-400"
           >
-            See what yours could look like
+            {{ copy.beforeAfter.cta }}
           </UButton>
         </div>
 
@@ -60,7 +56,7 @@ const changes = [
           <p class="mt-4 flex items-start gap-2 text-sm leading-relaxed text-cream-300/75">
             <UIcon name="i-lucide-move-horizontal" class="mt-0.5 size-4 shrink-0 text-brass-400" />
             <span>
-              Drag the handle to compare.
+              {{ copy.beforeAfter.dragHint }}
               <span class="text-cream-400/80">{{ media.beforeAfter.caption }}</span>
             </span>
           </p>

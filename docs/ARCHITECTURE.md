@@ -1,4 +1,4 @@
-# River City Fence & Seal — Architecture
+# Tallowbark Fence & Seal — Architecture
 
 A single-page, fully prerendered marketing site for a fence painting and sealing business in Memphis, Tennessee.
 
@@ -11,7 +11,7 @@ Authoritative source: `nuxt.config.ts`, `app/app.vue`, `app/pages/index.vue`, `a
 | `app/app.vue` | Nuxt root | `<head>`, SEO meta, `HousePainter` + `FAQPage` JSON-LD, page shell, skip link |
 | `app/pages/index.vue` | Nuxt page | The only route. Its child order **is** the page order |
 | `app/app.config.ts` | Runtime config | Business identity, media paths, form endpoint, Nuxt UI colour aliases |
-| `app/utils/content.ts` | Content module | Services, process steps, FAQ, reviews, service areas, plan benefits |
+| `app/utils/content.ts` | Content module | Services, process steps, FAQ, reviews, service areas, plan benefits, **and the `copy` object holding every heading, label and placeholder on the page** plus the `fill()` interpolation helper |
 | `app/utils/nav.ts` | Content module | Header/mobile nav anchor list |
 | `SiteHeader`, `SiteFooter`, `MobileCallBar` | Vue SFC | Chrome; all three read `business` from app config |
 | 11 `*Section` components | Vue SFC | One per page section, listed in `index.vue` |

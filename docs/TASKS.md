@@ -1,4 +1,4 @@
-# River City Fence & Seal improvement tasks
+# Tallowbark Fence & Seal improvement tasks
 
 Living checklist for the marketing site. **One task at a time.**
 
@@ -37,7 +37,7 @@ with deliberate placeholder data. T1–T4 must land before the domain goes live.
 |                  |                                                                                                                                                                                                                                     |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Status**       | `Todo`                                                                                                                                                                                                                              |
-| **Why**          | `app.config.ts` ships fictional data: `phoneDisplay` `(901) 555-0142` is in the reserved `555-01xx` range, `email` is on the unregistered `rivercityfenceandseal.com`, `licenseNumber` is `TN-00000000`, and `reviewCount` / `reviewAverage` / `established` / `address` are invented. All are published as fact in visible copy **and** in the `HousePainter` JSON-LD. |
+| **Why**          | `app.config.ts` ships fictional data: `phoneDisplay` `(901) 555-0148` is in the reserved `555-01xx` range, `email` is on `tallowbark.example` (RFC 2606 reserved TLD, unregisterable), `licenseNumber` is `TN-00000000`, and `reviewCount` / `reviewAverage` / `established` / `address` are invented. All are published as fact in visible copy **and** in the `HousePainter` JSON-LD. |
 | **Goal**         | Every value under `business` is real and matches the Google Business Profile exactly.                                                                                                                                                |
 | **Likely touch** | `app/app.config.ts`, `docs/CONFIG-REFERENCE.md` (drop the PLACEHOLDER markers)                                                                                                                                                       |
 | **Acceptance**   | No `555-01` string anywhere in `.output/public`; `phoneHref` digits match `phoneDisplay`; `social` entries are profile URLs, not bare domains, or are deleted; name/phone/address identical to the Google Business Profile; every `credentials` claim independently true. |

@@ -11,9 +11,9 @@ const isMiddleColumn = (i: number) => i % 3 === 1
     <div class="mx-auto max-w-(--ui-container) px-6">
       <div class="flex flex-wrap items-end justify-between gap-8">
         <SectionHeading
-          eyebrow="Recent work"
-          title="Fence lines around Shelby County."
-          lede="Cedar, pine, board-on-board, shadowbox and picket — residential runs and full HOA fence lines."
+          :eyebrow="copy.gallery.eyebrow"
+          :title="copy.gallery.title"
+          :lede="copy.gallery.lede"
         />
         <UButton
           href="#quote"
@@ -22,7 +22,7 @@ const isMiddleColumn = (i: number) => i % 3 === 1
           trailing-icon="i-lucide-arrow-up-right"
           class="border-forest-800/25 font-semibold text-forest-800 hover:bg-cream-200/60"
         >
-          Start your project
+          {{ copy.gallery.cta }}
         </UButton>
       </div>
 

@@ -3,6 +3,12 @@ const { business } = useAppConfig()
 const scrolled = useScrolledPast(40)
 const mobileOpen = ref(false)
 
+/* Insurance claims are gated on credentials.insured so the strip cannot
+   advertise cover the business does not hold. */
+const stripItems = computed(() =>
+  copy.header.strip.filter(item => !item.needsInsured || business.credentials.insured)
+)
+
 const route = useRoute()
 watch(() => route.hash, () => {
   mobileOpen.value = false
@@ -14,17 +20,13 @@ watch(() => route.hash, () => {
   <div class="hidden bg-forest-950 text-cream-200 lg:block">
     <div class="mx-auto flex max-w-(--ui-container) items-center justify-between px-6 py-2 text-xs">
       <p class="flex items-center gap-6">
-        <span class="flex items-center gap-1.5">
-          <UIcon name="i-lucide-shield-check" class="size-3.5 text-brass-400" />
-          Licensed &amp; insured
-        </span>
-        <span class="flex items-center gap-1.5">
-          <UIcon name="i-lucide-map-pin" class="size-3.5 text-brass-400" />
-          Serving Greater Memphis &amp; Shelby County
-        </span>
-        <span class="flex items-center gap-1.5">
-          <UIcon name="i-lucide-clipboard-check" class="size-3.5 text-brass-400" />
-          Free on-site estimates
+        <span
+          v-for="item in stripItems"
+          :key="item.text"
+          class="flex items-center gap-1.5"
+        >
+          <UIcon :name="item.icon" class="size-3.5 text-brass-400" />
+          {{ item.text }}
         </span>
       </p>
       <a
@@ -60,7 +62,7 @@ watch(() => route.hash, () => {
           <span
             class="mt-1 hidden text-[0.65rem] font-medium tracking-[0.18em] uppercase transition-colors duration-300 sm:block"
             :class="scrolled ? 'text-cream-600' : 'text-brass-300/90'"
-          >Memphis, Tennessee</span>
+          >{{ business.locationLine }}</span>
         </span>
       </a>
 
@@ -100,7 +102,7 @@ watch(() => route.hash, () => {
             ? 'bg-forest-800 text-cream-50 hover:bg-forest-700'
             : 'bg-brass-500 text-forest-950 hover:bg-brass-400'"
         >
-          Free Estimate
+          {{ copy.header.ctaLabel }}
         </UButton>
 
         <UButton
@@ -148,7 +150,7 @@ watch(() => route.hash, () => {
               class="bg-forest-800 font-semibold text-cream-50 hover:bg-forest-700"
               @click="mobileOpen = false"
             >
-              Get a Free Estimate
+              {{ copy.header.mobileCtaLabel }}
             </UButton>
             <UButton
               :href="business.phoneHref"

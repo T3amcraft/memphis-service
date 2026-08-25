@@ -1,8 +1,8 @@
 {
-  "name": "river-city-fence-and-seal",
+  "name": "tallowbark-fence-and-seal",
   "private": true,
   "type": "module",
-  "description": "Marketing site for River City Fence & Seal — fence painting & sealing in Memphis, TN",
+  "description": "Marketing site for Tallowbark Fence & Seal — fence painting & sealing in Memphis, TN",
   "engines": {
     "node": ">=24"
   },

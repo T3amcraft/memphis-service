@@ -1,7 +1,212 @@
 /* ==========================================================================
    Editorial copy. Auto-imported by Nuxt — edit the text, the layout follows.
-   Contact details, photos and the form endpoint live in app/app.config.ts
+   Contact details, credentials, photos and integrations live in
+   app/app.config.ts
    ========================================================================== */
+
+/* --- Section wording -----------------------------------------------------
+   Every heading, lede and inline note on the page. Nothing here is repeated
+   in a component, so a change lands in exactly one place.
+   ------------------------------------------------------------------------ */
+export const copy = {
+  header: {
+    /* Slim strip above the header on wide screens. */
+    strip: [
+      { icon: 'i-lucide-shield-check', text: 'Licensed & insured', needsInsured: true },
+      { icon: 'i-lucide-map-pin', text: 'Serving Greater Memphis & Shelby County', needsInsured: false },
+      { icon: 'i-lucide-clipboard-check', text: 'Free on-site estimates', needsInsured: false }
+    ],
+    ctaLabel: 'Free Estimate',
+    mobileCtaLabel: 'Get a Free Estimate'
+  },
+
+  hero: {
+    eyebrow: 'Memphis · Germantown · Collierville',
+    /* The headline renders as: "<lead> <accent>." with the accent underlined. */
+    headlineLead: 'Fence painting & sealing, built for',
+    headlineAccent: 'Memphis weather',
+    lede:
+      'Fifty inches of rain a year, relentless humidity and a UV season that '
+      + 'never really ends. We soft-wash, prep, stain and seal — both sides, '
+      + 'every board — so your fence stops losing that fight.',
+    ctaPrimary: 'Get a Free Estimate',
+    trust: {
+      reviews: 'from {count}+ local reviews',
+      insured: 'Licensed & fully insured',
+      licensedOnly: 'Licensed contractor',
+      warranty: '{years}-year workmanship warranty'
+    },
+    promise: {
+      eyebrow: 'No-obligation',
+      title: 'On-site estimates, usually within 48 hours',
+      body: 'We measure the run, probe the posts, and put it in writing.'
+    }
+  },
+
+  trustBar: {
+    established: 'Memphis owned & operated',
+    reviews: '{count}+ homeowner reviews',
+    warranty: 'Written workmanship warranty',
+    licence: '& fully insured · {licence}',
+    licenceNoInsurance: 'Licence {licence}'
+  },
+
+  services: {
+    eyebrow: 'What we do',
+    title: 'Two services, done properly — and a plan so you only book once.',
+    lede:
+      'Most fence companies treat coating as an afternoon with a sprayer. The '
+      + 'prep is what decides whether it still looks right in three years, so '
+      + 'that is where most of our time goes.',
+    footnotePrefix: 'Not sure which your fence needs?',
+    footnoteLink: 'Ask for an honest assessment',
+    footnoteSuffix: '— we will tell you if it can wait a year.'
+  },
+
+  beforeAfter: {
+    eyebrow: 'Before & after',
+    title: 'The grey is not the wood. It is a layer sitting on top of it.',
+    lede:
+      'Most Memphis fences that look finished are simply dirty and dried out. '
+      + 'Wash, brighten, then seal, and the timber underneath is usually in far '
+      + 'better shape than the owner expected.',
+    changes: [
+      { icon: 'i-lucide-sparkles', text: 'Oxidised grey layer washed off, true colour brought back' },
+      { icon: 'i-lucide-shield', text: 'Water beads instead of soaking into the grain' },
+      { icon: 'i-lucide-sun', text: 'UV inhibitors slow the fade through our long summers' }
+    ],
+    cta: 'See what yours could look like',
+    dragHint: 'Drag the handle to compare.'
+  },
+
+  process: {
+    eyebrow: 'How the job runs',
+    title: 'Five steps, and none of them get skipped.',
+    lede:
+      'Coating is the quick part. Everything before it is what makes the finish '
+      + 'last — so here is exactly what happens, in order, from the first phone call.',
+    weatherNoteLead: 'Weather moves schedules.',
+    weatherNoteBody: 'We do not coat damp wood or work ahead of rain. You will get a call, not a rushed job.'
+  },
+
+  gallery: {
+    eyebrow: 'Recent work',
+    title: 'Fence lines around Shelby County.',
+    lede: 'Cedar, pine, board-on-board, shadowbox and picket — residential runs and full HOA fence lines.',
+    cta: 'Start your project'
+  },
+
+  reviews: {
+    eyebrow: 'What neighbours say',
+    title: 'Rated for prep work, straight answers and a clean site.',
+    aggregate: '{count}+ reviews across Google & Facebook'
+  },
+
+  maintenance: {
+    eyebrow: 'The Delta Guard Program',
+    title: 'Book us once. Then stop thinking about your fence.',
+    lede:
+      'A fence that is inspected, washed and re-sealed on a rhythm does not '
+      + 'enter the replacement cycle. One annual visit is the difference between '
+      + 'maintaining a fence and buying a new one.',
+    cta: 'Ask about Delta Guard',
+    includedLabel: 'Included every year',
+    costNote:
+      'Program cost depends on the length and condition of your fence, so we '
+      + 'quote it alongside your estimate — no sign-up needed to get the number.',
+    pullQuote: 'The cheapest fence you will ever own is the one you already have.'
+  },
+
+  areas: {
+    eyebrow: 'Where we work',
+    title: 'Greater Memphis, and about thirty miles out.',
+    lede:
+      'We are based in Memphis and stay inside Shelby County and its immediate '
+      + 'neighbours. That is deliberate — a crew that is not driving two hours '
+      + 'can be back on your fence the next morning when the weather turns.',
+    outsideNoteLead: 'Just outside the ring, or across the state line in North Mississippi? Call',
+    outsideNoteTail: 'and ask — larger jobs we will happily travel for.',
+    mapCaption: 'Illustrative coverage map — not to scale.'
+  },
+
+  faq: {
+    eyebrow: 'Straight answers',
+    title: 'Questions we get on almost every estimate.',
+    lede:
+      'If yours is not here, ask it. We would rather talk you out of work you do '
+      + 'not need than sell you a coat of stain your fence cannot hold.'
+  },
+
+  quote: {
+    eyebrow: 'Free estimate',
+    title: 'Tell us about your fence.',
+    lede:
+      'Send the details and we will come out, measure it, read the condition of '
+      + 'the wood, and give you a straight number in writing.',
+    nextSteps: [
+      'We call or text back the same working day',
+      'We walk the fence line with you and measure the run',
+      'A written, itemised quote — valid for 30 days'
+    ],
+    /* Dropdown options. Free text — the schema validates only that something
+       was chosen, so adding an option needs no code change. */
+    serviceOptions: [
+      'Fence painting & staining',
+      'Sealing & waterproofing',
+      'Delta Guard annual program',
+      'Not sure — please advise'
+    ],
+    lengthOptions: [
+      'Under 100 ft',
+      '100 – 200 ft',
+      '200 – 350 ft',
+      '350 – 600 ft',
+      'Over 600 ft',
+      'Not sure'
+    ],
+    /* Field labels and the example text shown inside each empty input.
+       The phone example uses the reserved 555-01xx range. */
+    fields: {
+      name: { label: 'Your name', placeholder: 'Jordan Whitaker' },
+      phone: { label: 'Phone', placeholder: '(901) 555-0148' },
+      email: { label: 'Email', placeholder: 'you@example.com' },
+      location: { label: 'Street or neighbourhood', placeholder: 'Germantown, 38139' },
+      service: { label: 'What do you need?', placeholder: 'Choose a service' },
+      length: { label: 'Roughly how much fence?', placeholder: 'Estimate is fine' },
+      message: {
+        label: 'Anything else we should know?',
+        hint: 'Optional',
+        placeholder: 'Age of the fence, wood type, whether it has been stained before, gates, HOA colour requirements — anything helps.'
+      }
+    },
+    submitLabel: 'Request my free estimate',
+    submitPending: 'Sending…',
+    successTitle: 'Request received',
+    successBody:
+      'Thank you — we will be in touch the same working day to book your on-site '
+      + 'estimate. If it is urgent, calling is always fastest.',
+    smallPrint: 'No obligation, no deposit, and no sales visit disguised as an estimate. Prefer to talk?',
+    consentLabel: 'Yes, contact me about this request.',
+    consentHint: 'We use your details for this estimate only — never sold, never added to a mailing list.',
+    errorTitle: 'That did not go through',
+    errorBody: 'Sorry — please call {phone} and we will take the details over the phone.'
+  },
+
+  footer: {
+    blurb: 'Fence painting, staining and sealing across Greater Memphis. Established {year}, still answering our own phone.',
+    servicesHeading: 'Services',
+    areasHeading: 'Service area',
+    contactHeading: 'Get in touch',
+    beforeAfterLink: 'Before & after',
+    areasLink: 'See full area →',
+    backToTop: 'Back to top'
+  }
+}
+
+/** Replace {placeholders} in a copy string. */
+export function fill(template: string, values: Record<string, string | number>) {
+  return template.replace(/\{(\w+)\}/g, (_, k) => String(values[k] ?? ''))
+}
 
 export interface Service {
   id: string

@@ -9,9 +9,9 @@ const { business } = useAppConfig()
         <div class="lg:col-span-4">
           <div class="lg:sticky lg:top-32">
             <SectionHeading
-              eyebrow="Straight answers"
-              title="Questions we get on almost every estimate."
-              lede="If yours is not here, ask it. We would rather talk you out of work you do not need than sell you a coat of stain your fence cannot hold."
+              :eyebrow="copy.faq.eyebrow"
+              :title="copy.faq.title"
+              :lede="copy.faq.lede"
             />
             <UButton
               :href="`mailto:${business.email}`"

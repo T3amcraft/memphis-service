@@ -5,21 +5,8 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 const { business, forms } = useAppConfig()
 const toast = useToast()
 
-const serviceOptions = [
-  'Fence painting & staining',
-  'Sealing & waterproofing',
-  'Delta Guard annual program',
-  'Not sure — please advise'
-]
-
-const lengthOptions = [
-  'Under 100 ft',
-  '100 – 200 ft',
-  '200 – 350 ft',
-  '350 – 600 ft',
-  'Over 600 ft',
-  'Not sure'
-]
+const serviceOptions = copy.quote.serviceOptions
+const lengthOptions = copy.quote.lengthOptions
 
 const schema = z.object({
   name: z.string({ error: 'Please enter your name' }).min(2, 'Please enter your name'),
@@ -67,7 +54,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     service: event.data.service,
     fenceLength: event.data.length,
     message: event.data.message ?? '',
-    source: 'rivercityfenceandseal.com — quote form'
+    source: `${business.name} — quote form`
   }
 
   try {
@@ -84,8 +71,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   }
   catch {
     toast.add({
-      title: 'That did not go through',
-      description: `Sorry — please call ${business.phoneDisplay} and we will take the details over the phone.`,
+      title: copy.quote.errorTitle,
+      description: fill(copy.quote.errorBody, { phone: business.phoneDisplay }),
       color: 'error',
       icon: 'i-lucide-triangle-alert'
     })
@@ -95,11 +82,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   }
 }
 
-const nextSteps = [
-  'We call or text back the same working day',
-  'We walk the fence line with you and measure the run',
-  'A written, itemised quote — valid for 30 days'
-]
+const nextSteps = copy.quote.nextSteps
 </script>
 
 <template>
@@ -116,9 +99,9 @@ const nextSteps = [
         <div class="min-w-0 lg:col-span-5">
           <SectionHeading
             tone="light"
-            eyebrow="Free estimate"
-            title="Tell us about your fence."
-            lede="Send the details and we will come out, measure it, read the condition of the wood, and give you a straight number in writing."
+            :eyebrow="copy.quote.eyebrow"
+            :title="copy.quote.title"
+            :lede="copy.quote.lede"
           />
 
           <ol class="mt-10 space-y-4">
@@ -168,8 +151,8 @@ const nextSteps = [
               </span>
               <div class="text-sm text-cream-200/85">
                 <span class="block text-xs tracking-[0.14em] text-cream-400/70 uppercase">Hours</span>
-                <span v-for="slot in business.hours" :key="slot.days" class="block">
-                  {{ slot.days }} · {{ slot.time }}
+                <span v-for="slot in business.hours" :key="slot.label" class="block">
+                  {{ slot.label }} · {{ slot.display }}
                 </span>
               </div>
             </div>
@@ -192,11 +175,10 @@ const nextSteps = [
                   <UIcon name="i-lucide-check" class="size-8" />
                 </span>
                 <h3 class="mt-6 font-serif text-3xl font-semibold text-forest-900">
-                  Request received
+                  {{ copy.quote.successTitle }}
                 </h3>
                 <p class="mx-auto mt-4 max-w-md leading-relaxed text-cream-700">
-                  Thank you — we will be in touch the same working day to book your
-                  on-site estimate. If it is urgent, calling is always fastest.
+                  {{ copy.quote.successBody }}
                 </p>
                 <div class="rule-diamond my-8">
                   <UIcon name="i-lucide-diamond" class="size-2.5" />
@@ -224,84 +206,84 @@ const nextSteps = [
                 @submit="onSubmit"
               >
                 <div class="grid gap-5 sm:grid-cols-2">
-                  <UFormField label="Your name" name="name" required>
+                  <UFormField :label="copy.quote.fields.name.label" name="name" required>
                     <UInput
                       v-model="state.name"
                       size="xl"
                       class="w-full"
-                      placeholder="Jordan Whitaker"
+                      :placeholder="copy.quote.fields.name.placeholder"
                       autocomplete="name"
                     />
                   </UFormField>
 
-                  <UFormField label="Phone" name="phone" required>
+                  <UFormField :label="copy.quote.fields.phone.label" name="phone" required>
                     <UInput
                       v-model="state.phone"
                       size="xl"
                       class="w-full"
                       type="tel"
-                      placeholder="(901) 555-0142"
+                      :placeholder="copy.quote.fields.phone.placeholder"
                       autocomplete="tel"
                     />
                   </UFormField>
                 </div>
 
                 <div class="grid gap-5 sm:grid-cols-2">
-                  <UFormField label="Email" name="email" required>
+                  <UFormField :label="copy.quote.fields.email.label" name="email" required>
                     <UInput
                       v-model="state.email"
                       size="xl"
                       class="w-full"
                       type="email"
-                      placeholder="you@example.com"
+                      :placeholder="copy.quote.fields.email.placeholder"
                       autocomplete="email"
                     />
                   </UFormField>
 
-                  <UFormField label="Street or neighbourhood" name="location" required>
+                  <UFormField :label="copy.quote.fields.location.label" name="location" required>
                     <UInput
                       v-model="state.location"
                       size="xl"
                       class="w-full"
-                      placeholder="Germantown, 38139"
+                      :placeholder="copy.quote.fields.location.placeholder"
                       autocomplete="address-level2"
                     />
                   </UFormField>
                 </div>
 
                 <div class="grid gap-5 sm:grid-cols-2">
-                  <UFormField label="What do you need?" name="service" required>
+                  <UFormField :label="copy.quote.fields.service.label" name="service" required>
                     <USelect
                       v-model="state.service"
                       :items="serviceOptions"
                       size="xl"
                       class="w-full"
-                      placeholder="Choose a service"
+                      :placeholder="copy.quote.fields.service.placeholder"
                     />
                   </UFormField>
 
-                  <UFormField label="Roughly how much fence?" name="length" required>
+                  <UFormField :label="copy.quote.fields.length.label" name="length" required>
                     <USelect
                       v-model="state.length"
                       :items="lengthOptions"
                       size="xl"
                       class="w-full"
-                      placeholder="Estimate is fine"
+                      :placeholder="copy.quote.fields.length.placeholder"
                     />
                   </UFormField>
                 </div>
 
                 <UFormField
-                  label="Anything else we should know?"
+                  :label="copy.quote.fields.message.label"
                   name="message"
-                  hint="Optional"
+                  :hint="copy.quote.fields.message.hint"
                 >
                   <UTextarea
                     v-model="state.message"
                     :rows="4"
                     size="xl"
                     class="w-full"
-                    placeholder="Age of the fence, wood type, whether it has been stained before, gates, HOA colour requirements — anything helps."
+                    :placeholder="copy.quote.fields.message.placeholder"
                   />
                 </UFormField>
 
@@ -321,8 +303,8 @@ const nextSteps = [
                 <UFormField name="consent">
                   <UCheckbox
                     v-model="state.consent"
-                    label="Yes, contact me about this request."
-                    description="We use your details for this estimate only — never sold, never added to a mailing list."
+                    :label="copy.quote.consentLabel"
+                    :description="copy.quote.consentHint"
                   />
                 </UFormField>
 
@@ -334,12 +316,11 @@ const nextSteps = [
                   trailing-icon="i-lucide-arrow-right"
                   class="bg-forest-800 font-semibold text-cream-50 hover:bg-forest-700"
                 >
-                  {{ pending ? 'Sending…' : 'Request my free estimate' }}
+                  {{ pending ? copy.quote.submitPending : copy.quote.submitLabel }}
                 </UButton>
 
                 <p class="text-center text-xs leading-relaxed text-cream-600">
-                  No obligation, no deposit, and no sales visit disguised as an
-                  estimate. Prefer to talk?
+                  {{ copy.quote.smallPrint }}
                   <a :href="business.phoneHref" class="font-semibold text-forest-800 underline decoration-brass-400 decoration-2 underline-offset-2">
                     {{ business.phoneDisplay }}
                   </a>

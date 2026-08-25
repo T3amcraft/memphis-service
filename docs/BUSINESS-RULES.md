@@ -1,4 +1,4 @@
-# River City Fence & Seal — Business Rules
+# Tallowbark Fence & Seal — Business Rules
 
 Behaviour that is not evident from signatures: quote-form validation and delivery, how media slots resolve, and the content couplings that drive layout.
 
@@ -70,6 +70,9 @@ Adding `class="reveal"` directly in markup would break rule 1 and hide content f
 - **`serviceAreas` feeds three places:** the area list, `areaServed` in the `HousePainter` JSON-LD, and the footer, which shows `slice(0, 8)` only.
 - **`services` feeds `hasOfferCatalog`** in the same JSON-LD block.
 - Section order is `app/pages/index.vue` alone; no component references its neighbours.
+- **`business.hours` rows carry a human half and a machine half.** `label`/`display` render on the page; `days`/`opens`/`closes` generate the JSON-LD `openingHoursSpecification`, and `closed: true` omits the row from it. Editing only the display half silently desynchronises the structured data from the page.
+- **`credentials.insured` gates insurance claims, not just copy.** `false` removes the header strip item, swaps the hero line to `copy.hero.trust.licensedOnly`, and switches the trust bar to `copy.trustBar.licenceNoInsurance`. Never assert cover in `copy` that the flag denies.
+- **No component holds literal prose.** All wording lives in `content.ts` → `copy`; `{placeholder}` tokens are interpolated by `fill()` against values from `app.config.ts`.
 
 ## Structured data
 
@@ -80,7 +83,7 @@ Adding `class="reveal"` directly in markup would break rule 1 and hide content f
 The shipped placeholders are chosen so they cannot quietly become live data:
 
 - Phone numbers use the `555-01xx` range, reserved for fictional use.
-- `quotes@rivercityfenceandseal.com` is on an unregistered domain.
+- `quotes@tallowbark.example` uses `.example`, a TLD permanently reserved by RFC 2606 — it cannot be registered by anyone, ever.
 - All four `testimonials[].name` values read literally `Placeholder review`, so an unreplaced review is visible on the rendered page rather than hidden in source.
 
 ## Related documentation
